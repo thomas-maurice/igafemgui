@@ -1,0 +1,50 @@
+igafem
+----------------------------------------
+by Thomas Maurice <tmaurice59@gmail.com>
+
+This program provide a handy user interface to
+Phu Vinh Nguyen FEM Octave code. This is used
+to easily change some parameters and launch the
+simulation without having to modify the sources.
+
+* COMPILE
+ To compile this program you need to install
+ gtkmm 3.0 and libxml++ 2.6 
+
+ You also need CMake.
+
+ Go into the source directory, if you want to make
+ a separate build directory then
+ $ mkdir build && cd build
+ then
+ $ cmake ..
+
+ If you did not create a build directory just
+ $ cmake .
+
+ In both cases run
+ $ make
+
+ And here you go
+
+* USAGE
+ Just type ./igafemgui to launch the program. At the first
+ launch, a directory will be created in your home at
+ ~/.igafemgui
+
+ This will contain config.xml and a subfolder files/
+ 
+ The files/ subfolder is used to store the information
+ about the Octave scripts to be launched (for example some
+ piece of description, a parameter list and some other
+ stuff)
+
+ You can edit two XML tags in the config file:
+ 	* basefem which contains all the FEM code
+	* base file which should point to $HOME/.igafemgui/files
+ You can also edit it via Configuration > Edit in the
+ main window of the program.
+
+ The developpement documentation for the program can be built
+ using Doxygen. Type doxygen Doxyfile and then open
+ doxygen/html/index.html to access the documentation

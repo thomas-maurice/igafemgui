@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<octscript>
+	<name>xigaEdgeCrack3d</name>
+	<dir>xiga</dir>
+	<author>Phu Vinh Nguyen</author>
+	<description>This script performs some crack tests</description>
+</octscript>

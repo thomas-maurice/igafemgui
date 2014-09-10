@@ -1,0 +1,2 @@
+/home/thomas/igafemgui/build/CMakeFiles/igafemgui.dir
+/home/thomas/igafemgui/build/CMakeFiles/uninstall.dir

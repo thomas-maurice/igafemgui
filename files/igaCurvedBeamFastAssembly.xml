@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<octscript>
+	<name>igaCurvedBeamFastAssembly</name>
+	<dir>iga</dir>
+	<geomdir>geometry</geomdir>
+	<geom>annularDataGeopdes</geom>
+	<author>Phu Vinh Nguyen</author>
+	<description></description>
+</octscript>

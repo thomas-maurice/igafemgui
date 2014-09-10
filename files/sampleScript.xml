@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<octscript>
+	<name>sampleScript</name>
+	<dir>sample</dir>
+	<geomdir></geomdir>
+	<geom></geom>
+	<author>Thomas Maurice</author>
+	<description>Some basic script used to make the debug process easier. This will just print a bunch of useless things to the command line in order to ensure that all the parameter have correctly been passed to the Octave interpreter.</description>
+	<param name="param1" default="2.3" desc="What a lame name" min="0" max="100" inc="0.01" />
+	<param name="foo" default="42" desc="bar, also : baz" min="0" max="100" inc="0.1" />
+</octscript>

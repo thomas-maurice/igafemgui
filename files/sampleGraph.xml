@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<octscript>
+	<name>sampleGraph</name>
+	<dir>sample</dir>
+	<author>Thomas Maurice</author>
+	<description>Sample script that plots a 2D graph of a polynomial of degree n. Here n is between 0 and 5.</description>
+	<param name="n" default="1" desc="degree of the polynome" min="0" max="7" inc="1" />
+</octscript>

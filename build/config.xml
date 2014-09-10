@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<basefem>/home/thomas/IsogeometricAnalysis</basefem>
+	<basedat>/home/thomas/.igafemgui/files</basedat>
+	<defhost>exemple.fr</defhost>
+	<defuser>thomas</defuser>
+</config>

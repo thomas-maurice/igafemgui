@@ -1,0 +1,107 @@
+CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
+
+PROJECT(igafemgui)
+
+SET(CMAKE_INSTALL_PREFIX $ENV{HOME})
+
+IF(NOT UNIX)
+	MESSAGE(FATAL_ERROR "This project is not meant to be compiled on Windows")
+ENDIF(NOT UNIX)
+
+FIND_PACKAGE(PkgConfig)
+PKG_CHECK_MODULES(GTKMM gtkmm-3.0)
+PKG_CHECK_MODULES(LIBXML libxml++-2.6)
+ 
+if(NOT GTKMM_FOUND)
+	message(FATAL_ERROR "gtkmm-3.0 not found!")
+endif()
+
+if(NOT LIBXML_FOUND)
+	message(FATAL_ERROR "libxml++-2.6 not found!")
+endif()
+
+PKG_CHECK_MODULES(LIBSSH libssh)
+
+IF(NOT LIBSSH_FOUND)
+	MESSAGE(FATAL_ERROR "libssh not found !")
+ENDIF()
+
+CONFIGURE_FILE(${CMAKE_SOURCE_DIR}/config/config.xml.cmake
+               ${CMAKE_BINARY_DIR}/config.xml
+)
+
+# uninstall target
+CONFIGURE_FILE(
+    "${CMAKE_CURRENT_SOURCE_DIR}/cmake/uninstall.cmake.in"
+    "${CMAKE_CURRENT_BINARY_DIR}/cmake/uninstall.cmake"
+    IMMEDIATE @ONLY
+)
+
+SET(CMAKE_CXX_FLAGS "-O3 -Wall")
+SET(CMAKE_C_FLAGS "-O3 -Wall")
+	
+ADD_CUSTOM_TARGET(uninstall
+    COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake/uninstall.cmake)
+
+LINK_DIRECTORIES(
+	${GTKMM_LIBRARY_DIRS}
+	${LIBXML_LIBRARY_DIRS}
+	${LIBSSH_LIBRARY_DIRS}
+)
+
+INCLUDE_DIRECTORIES(
+	${GTKMM_INCLUDE_DIRS}
+	${LIBSSH_INCLUDE_DIRS}
+	${LIBXML_INCLUDE_DIRS}
+	include
+)
+ 
+FILE(
+	GLOB_RECURSE
+	source_files
+	src/*.cpp
+	src/*.c
+	include/*.h
+)
+ 
+ADD_EXECUTABLE(
+	igafemgui
+	${source_files}
+)
+ 
+TARGET_LINK_LIBRARIES(
+	igafemgui
+	${GTKMM_LIBRARIES}
+	${LIBXML_LIBRARIES}
+	${LIBSSH_LIBRARIES}
+)
+
+INSTALL(TARGETS igafemgui
+        DESTINATION bin)
+INSTALL(FILES ${CMAKE_BINARY_DIR}/config.xml
+        DESTINATION $ENV{HOME}/.igafemgui)
+INSTALL(DIRECTORY files
+        DESTINATION $ENV{HOME}/.igafemgui)
+
+IF(PACK_DEB)
+	SET(CPACK_DEBIAN_PACKAGE_MAINTAINER "Thomas Maurice <tmaurice59@gmail.com>")
+	SET(CPACK_PACKAGE_DESCRIPTION_SUMMARY "GUI interface to IGA Octave code")
+	SET(CPACK_PACKAGE_DESCRIPTION "GUI interface to IGA Octave code")
+	SET(CPACK_DEBIAN_PACKAGE_DEPENDS)
+	SET(CPACK_DEBIAN_PACKAGE_SECTION "Science")
+	SET(CPACK_DEBIAN_PACKAGE_VERSION "0.1")
+ELSEIF(PACK_RPM)
+	SET(CPACK_GENERATOR "RPM")
+
+	SET(CPACK_RPM_PACKAGE_SUMMARY "GUI interface to IGA Octave code")
+	SET(CPACK_RPM_PACKAGE_NAME "igafemgui")
+	SET(CPACK_RPM_PACKAGE_VERSION "0.1")
+	SET(CPACK_RPM_PACKAGE_RELEASE "0.1")
+	SET(CPACK_RPM_PACKAGE_VENDOR "Thomas Maurice <tmaurice59@gmail.com>")
+	SET(CPACK_RPM_PACKAGE_LICENSE "GNU/GPLv3+")
+	SET(CPACK_RPM_PACKAGE_DESCRIPTION "GUI interface to IGA Octave code")
+	SET(CPACK_RPM_PACKAGE_REQUIRES "octave, gtkmm30, libxml++ >= 2.6, libssh")
+	SET(CPACK_RPM_PACKAGE_PROVIDES "igafemgui")
+
+	INCLUDE(CPack)
+ENDIF()
